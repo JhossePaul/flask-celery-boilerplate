@@ -1,4 +1,4 @@
-from werkzeug import generate_pasword_hash, check_password_hash
+from werkzeug import generate_password_hash, check_password_hash
 
 from flask_login import UserMixin
 from ..common.helpers import JsonSerializer, get_current_time
@@ -18,10 +18,10 @@ class SuperUser(db.Model, UserMixin, UserJsonSerializer):
         return "SuperUser %r" % self.username
 
     id              = db.Column(db.Integer, primary_key = True)
-    first_name      = db.Column(db.String(UserConstants.STRING_LEN)), nullable = False)
-    last_name       = db.Column(db.String(UserConstants.STRING_LEN)), nullable = False)
-    username        = db.Column(db.String(UserConstants.STRING_LEN)), nullable = False, unique = True, index = True)
-    email           = db.Column(db.String(UserConstants.STRING_LEN)), nullable = False, unique = True, index = True)
+    first_name      = db.Column(db.String(UserConstants.STRING_LEN), nullable = False)
+    last_name       = db.Column(db.String(UserConstants.STRING_LEN), nullable = False)
+    username        = db.Column(db.String(UserConstants.STRING_LEN), nullable = False, unique = True, index = True)
+    email           = db.Column(db.String(UserConstants.STRING_LEN), nullable = False, unique = True, index = True)
     created_on      = db.Column(db.DateTime, nullable = False, default = get_current_time)
     role_code       = db.Column(db.SmallInteger, default = UserConstants.USER, nullable = False)
 
@@ -53,7 +53,7 @@ class SuperUser(db.Model, UserMixin, UserJsonSerializer):
     @classmethod
     def is_user_name_taken(cls, username):
         return db.session.query(db.exists().where(User.username == username)).scalar()
-    
+
     @classmethod
     def is_email_taken(cls, email_address):
         return db.session.query(db.exists().where(User.email == email_address)).scalar()
