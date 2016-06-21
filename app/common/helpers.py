@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from flask.json import JSONEnconder as BaseJSONEncoder
+from flask.json import JSONEncoder as BaseJSONEncoder
 
 def get_current_time():
     return datetime.utcnow()

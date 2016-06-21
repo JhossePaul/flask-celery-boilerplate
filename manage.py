@@ -1,9 +1,10 @@
+import app.models as Models
+
 from flask_script import Manager, Shell, Server
 from flask import current_app
 from app import create_app
 from app.extensions import db
-import app.models as Models
-from app.config import DefaultConfig
+from app.settings import DefaultConfig
 
 def create_my_app(config = DefaultConfig):
     return create_app(config)
@@ -22,7 +23,7 @@ def make_shell_context():
 @manager.command
 def initdb():
     db.drop_all(bind = None)
-    db.create_all(bidn = None)
+    db.create_all(bind = None)
 
     # add sample user
     user = Models.User(
@@ -30,10 +31,11 @@ def initdb():
         last_name   = u"Marquez",
         username    = u"Paul",
         password    = u"latreach",
-        email       = u"paul@latreach.com"
+        email       = u"paul@latreach.com",
+        role_code   = 0
     )
     db.session.add(user)
-    db-session.commit()
+    db.session.commit()
 
 if __name__ == "__main__":
     manager.run()

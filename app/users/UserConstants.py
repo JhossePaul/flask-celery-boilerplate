@@ -3,12 +3,12 @@ ADMIN   = 0
 STAFF   = 1
 USER    = 2
 TESTER  = 3
-USER_ROLE = [
+USER_ROLE = {
     ADMIN:  "admin",
     STAFF:  "staff",
     USER:   "user",
     TESTER: "test",
-]
+}
 
 MIN_USERNAME_LEN = 4
 MAX_USERNAME_LEN = 30

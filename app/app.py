@@ -1,26 +1,29 @@
-# from os import getenv
 import settings as Config
 
+# from os import getenv
 from flask import Flask
-from .models import SuperUser
-from .extensions import db, login_manager, csrf
+
+from .api import helloworld, auth
+from .common import Response
 from .common import constants as COMMON_CONSTANTS
-from .api import helloworld
+from .extensions import db, login_manager, csrf
+from .frontend import frontend
+from .models import User
 
 # For import *
-# __all__ = ['create_app']
+__all__ = ['create_app']
 
 
 DEFAULT_BLUEPRINTS = [
     helloworld,
+    auth,
+    frontend,
 ]
 
 def create_app(config = None, app_name = None, blueprints = None):
     """Create a Flask app."""
-    if app_name is None:
-        app_name = Config.DefaultConfig.PROJECT
-    if blueprints is None:
-        blueprints = DEFAULT_BLUEPRINTS
+    if app_name is None:   app_name = Config.DefaultConfig.PROJECT
+    if blueprints is None: blueprints = DEFAULT_BLUEPRINTS
 
     app = Flask(app_name, instance_path = COMMON_CONSTANTS.INSTANCE_FOLDER_PATH, instance_relative_config = True)
 
@@ -30,6 +33,7 @@ def create_app(config = None, app_name = None, blueprints = None):
     configure_extensions(app)
     configure_logging(app)
     configure_error_handlers(app)
+
     return app
 
 def configure_app(app, config = None):
@@ -37,7 +41,7 @@ def configure_app(app, config = None):
     app.config.from_object(Config.DefaultConfig)
     if config:
         app.config.from_object(config)
-    return
+        return
 
 def configure_extensions(app):
     # Flask SQLAlchemy
@@ -45,7 +49,7 @@ def configure_extensions(app):
 
     # Flask Login
     login_manager.login_view   = "frontend.index"
-    login_manager.refresh.view = "frontend.index"
+    login_manager.refresh_view = "frontend.index"
 
     @login_manager.user_loader
     def load_user(id):

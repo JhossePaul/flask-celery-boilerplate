@@ -12,10 +12,10 @@ class UserJsonSerializer(JsonSerializer):
         "role_code": ["role", lambda code: UserConstants.USER_ROLE[code]]
     }
 
-class SuperUser(db.Model, UserMixin, UserJsonSerializer):
-    __tablename__ = "superuser"
+class User(db.Model, UserMixin, UserJsonSerializer):
+    __tablename__ = "user"
     def __repr__(self):
-        return "SuperUser %r" % self.username
+        return "User %r" % self.username
 
     id              = db.Column(db.Integer, primary_key = True)
     first_name      = db.Column(db.String(UserConstants.STRING_LEN), nullable = False)
@@ -33,7 +33,7 @@ class SuperUser(db.Model, UserMixin, UserJsonSerializer):
     def _set_password(self, password):
         self._password = generate_password_hash(password)
 
-    password = db.synonym("_password", descriptor = proprerty(_get_password, _set_password))
+    password = db.synonym("_password", descriptor = property(_get_password, _set_password))
 
     def check_password(self, password):
         if self.password is None:
