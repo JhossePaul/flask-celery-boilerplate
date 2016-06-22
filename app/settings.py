@@ -16,13 +16,13 @@ class DefaultConfig(BaseConfig):
     # Flask SQLAlchemy configuration
     MYSQL_USER                      = "paul"
     MYSQL_PASS                      = "latreach"
-    SQLALCHEMY_TRACK_MODIFICATIONS  = True
     SQLALCHEMY_DATABASE_URI         = "mysql://" + ":".join([MYSQL_USER, MYSQL_PASS]) + "@localhost/stingdata"
+    SQLALCHEMY_TRACK_MODIFICATIONS  = True
 
 class LocalConfig(DefaultConfig):
     pass
 
-class StagigConfig(DefaultConfig):
+class StagingConfig(DefaultConfig):
     pass
 
 class ProductionConfig(DefaultConfig):

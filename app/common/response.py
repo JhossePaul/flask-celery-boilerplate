@@ -1,14 +1,13 @@
-import sys
-import traceback
-
-from os import path
-
-from flask import make_response, jsonify, abort, current_app
-from werkzeug.http import HTTP_STATUS_CODES
-
 """
 Helper for making API returns consistent
 """
+import sys
+import traceback
+
+from os.path import split
+from flask import make_response, jsonify, abort, current_app
+from werkzeug.http import HTTP_STATUS_CODES
+
 def _make_json_response(response, code = 200):
     # If response type is not defined, user default HTTP status name
     if code is not 200 and not response["errors"]["type"]:
@@ -51,7 +50,7 @@ def make_form_error_resp(form, msg = None):
 def make_exception_resp(exception, type = None, code = 500):
     # NOTE: Will probably not want to display exception to users in production
     exc_type, exc_obj, exc_tb = sys.exc_info()
-    fname = path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+    fname = split(exc_tb.tb_frame.f_code.co_filename)[1]
 
     # Include file name, line number and stacktrace
     msg = "Exception: %s: %s: %s %s" % (exc_type, fname, exc_tb.tb_lineno, traceback.format_exc())
