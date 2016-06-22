@@ -3,7 +3,7 @@ import settings as Config
 from os import getenv
 from flask import Flask
 
-from .api import helloworld, auth
+from .api import api
 from .common import Response
 from .common import constants as COMMON_CONSTANTS
 from .extensions import db, login_manager, csrf
@@ -15,8 +15,7 @@ __all__ = ["create_app"]
 
 
 DEFAULT_BLUEPRINTS = [
-    helloworld,
-    auth,
+    api,
     frontend,
 ]
 
