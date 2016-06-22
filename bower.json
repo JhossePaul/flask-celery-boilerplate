@@ -1,5 +1,5 @@
 {
-  "name": "Social Network Miner",
+  "name": "social_network_miner",
   "homepage": "https://github.com/JhossePaul/social-miner",
   "description": "CRM & Data Analysis for common social networks",
   "main": "manage.py",
@@ -26,6 +26,9 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "^3.0.0"
+    "jquery": "^3.0.0",
+    "react": "^15.1.0",
+    "babel": "*",
+    "material-design-lite": "^1.1.3"
   }
 }
