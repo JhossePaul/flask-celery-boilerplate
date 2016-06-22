@@ -1,0 +1,31 @@
+{
+  "name": "Social Network Miner",
+  "homepage": "https://github.com/JhossePaul/social-miner",
+  "description": "CRM & Data Analysis for common social networks",
+  "main": "manage.py",
+  "keywords": [
+    "CRM",
+    "data",
+    "analysis",
+    "data",
+    "mining",
+    "social",
+    "network"
+  ],
+  "authors": [
+    "Paul Márquez <mcromanceva@hotmail.com>"
+  ],
+  "license": "GNU",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/static/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.0.0"
+  }
+}

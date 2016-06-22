@@ -11,7 +11,7 @@ from .frontend import frontend
 from .models import User
 
 # For import *
-__all__ = ['create_app']
+__all__ = ["create_app"]
 
 
 DEFAULT_BLUEPRINTS = [
@@ -58,7 +58,9 @@ def configure_extensions(app):
     @login_manager.user_loader
     def load_user(id):
         return User.query.get(id)
+
     login_manager.setup_app(app)
+
     @login_manager.unauthorized_handler
     def unauthorized(msg = None):
         """ Handles unauthorized request"""

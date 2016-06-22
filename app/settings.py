@@ -2,7 +2,7 @@ from os.path import abspath, dirname
 from common.constants import INSTANCE_FOLDER_PATH
 
 class BaseConfig(object):
-    PROJECT         = "Social Network Miner"
+    PROJECT         = "app"
     PROJECT_ROOT    = abspath(dirname(__file__))
     DEBUG           = False
     TESTING         = False
@@ -11,13 +11,14 @@ class BaseConfig(object):
 
 class DefaultConfig(BaseConfig):
     DEBUG       = True
-    SECRET_KEY  = "JamasAdivinaras"
 
     # Flask SQLAlchemy configuration
     MYSQL_USER                      = "paul"
     MYSQL_PASS                      = "latreach"
     SQLALCHEMY_DATABASE_URI         = "mysql://" + ":".join([MYSQL_USER, MYSQL_PASS]) + "@localhost/stingdata"
     SQLALCHEMY_TRACK_MODIFICATIONS  = True
+
+    SECRET_KEY  = "JamasAdivinaras"
 
 class LocalConfig(DefaultConfig):
     pass
