@@ -15,7 +15,7 @@ class DefaultConfig(BaseConfig):
     # Flask SQLAlchemy configuration
     MYSQL_USER                      = "paul"
     MYSQL_PASS                      = "latreach"
-    SQLALCHEMY_DATABASE_URI         = "mysql://" + ":".join([MYSQL_USER, MYSQL_PASS]) + "@localhost/stingdata"
+    SQLALCHEMY_DATABASE_URI         = "mysql://" + ":".join([MYSQL_USER, MYSQL_PASS]) + "@localhost/snm"
     SQLALCHEMY_TRACK_MODIFICATIONS  = True
 
     SECRET_KEY  = "JamasAdivinaras"

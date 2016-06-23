@@ -95,18 +95,3 @@ function signup(signupData) {
     var url = "/api/auth/signup";
     return $.post(url, signupData);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

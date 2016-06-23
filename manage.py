@@ -24,23 +24,11 @@ manager.add_command("db", MigrateCommand)
 def make_shell_context():
     return dict(app = current_app, db = db, models = Models)
 
-# init/reset database
+# Init/Reset database
 @manager.command
-def initdb():
+def restartdb():
     db.drop_all(bind = None)
     db.create_all(bind = None)
-
-    # add sample user
-    user = Models.User(
-        first_name  = u"Paul",
-        last_name   = u"Marquez",
-        username    = u"Paul",
-        password    = u"latreach",
-        email       = u"paul@latreach.com",
-        role_code   = 0
-    )
-    db.session.add(user)
-    db.session.commit()
 
 if __name__ == "__main__":
     manager.run()
