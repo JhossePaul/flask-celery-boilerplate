@@ -4,7 +4,8 @@ Simple RESTful API with Flask-RESTful
 
 from flask import Blueprint, request, jsonify
 from flask_restful import Api
-from resources import VerifyAuth, Login, Signup
+
+from .resources import VerifyAuth, Login, Signup
 
 api = Blueprint("api", __name__, url_prefix = "/api")
 api_wrap = Api(api)

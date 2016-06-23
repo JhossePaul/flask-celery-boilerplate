@@ -18,10 +18,16 @@ class User(db.Model, UserMixin, UserJsonSerializer):
         return "User %r" % self.username
 
     id              = db.Column(db.Integer, primary_key = True)
+
+    # User authentication information
+    username        = db.Column(db.String(UserConstants.STRING_LEN), nullable = False, unique = True, index = True)
+
+    # User email information
+    email           = db.Column(db.String(UserConstants.STRING_LEN), nullable = False, unique = True, index = True)
+    confirmed_at    = db.Column(db.DateTime())
+
     first_name      = db.Column(db.String(UserConstants.STRING_LEN), nullable = False)
     last_name       = db.Column(db.String(UserConstants.STRING_LEN), nullable = False)
-    username        = db.Column(db.String(UserConstants.STRING_LEN), nullable = False, unique = True, index = True)
-    email           = db.Column(db.String(UserConstants.STRING_LEN), nullable = False, unique = True, index = True)
     created_on      = db.Column(db.DateTime, nullable = False, default = get_current_time)
     role_code       = db.Column(db.SmallInteger, default = UserConstants.USER, nullable = False)
 
@@ -51,7 +57,7 @@ class User(db.Model, UserMixin, UserJsonSerializer):
         return user, authenticated
 
     @classmethod
-    def is_user_name_taken(cls, username):
+    def is_username_taken(cls, username):
         return db.session.query(db.exists().where(User.username == username)).scalar()
 
     @classmethod

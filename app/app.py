@@ -2,6 +2,7 @@ import settings as Config
 
 from os import getenv
 from flask import Flask
+from flask_migrate import Migrate
 
 from .api import api
 from .common import Response
@@ -67,6 +68,9 @@ def configure_extensions(app):
 
     # Flask WTF
     csrf.init_app(app)
+
+    # Flask Migrate
+    migrate = Migrate(app, db)
 
 def configure_blueprints(app, blueprints):
     for blueprint in blueprints:
