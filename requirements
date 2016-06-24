@@ -1,9 +1,13 @@
 alembic==0.8.6
+amqp==1.4.9
 aniso8601==1.1.0
+anyjson==0.3.3
 backports.shutil-get-terminal-size==1.0.0
 bcrypt==2.0.0
 beautifulsoup4==4.4.1
+billiard==3.3.0.23
 blinker==1.4
+celery==3.1.23
 cffi==1.7.0
 click==6.6
 decorator==4.0.10
@@ -24,6 +28,7 @@ ipython==4.2.0
 ipython-genutils==0.1.0
 itsdangerous==0.24
 Jinja2==2.8
+kombu==3.0.35
 Mako==1.0.4
 MarkupSafe==0.23
 MySQL-python==1.2.5

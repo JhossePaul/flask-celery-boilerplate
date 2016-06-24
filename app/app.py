@@ -11,23 +11,28 @@ from .extensions import db, login_manager, csrf
 from .frontend import frontend
 from .models import User
 
+
 # For import *
 __all__ = ["create_app"]
-
 
 DEFAULT_BLUEPRINTS = [
     api,
     frontend,
 ]
 
-def create_app(config = None, app_name = None, blueprints = None):
+
+def create_app(config=None, app_name=None, blueprints=None):
     """Create a Flask app."""
     if app_name is None:
-         app_name = Config.DefaultConfig.PROJECT
+        app_name = Config.DefaultConfig.PROJECT
     if blueprints is None:
         blueprints = DEFAULT_BLUEPRINTS
 
-    app = Flask(app_name, instance_path = COMMON_CONSTANTS.INSTANCE_FOLDER_PATH, instance_relative_config = True)
+    app = Flask(
+        app_name,
+        instance_path=COMMON_CONSTANTS.INSTANCE_FOLDER_PATH,
+        instance_relative_config=True
+    )
 
     configure_app(app, config)
     configure_hook(app)
@@ -38,7 +43,8 @@ def create_app(config = None, app_name = None, blueprints = None):
 
     return app
 
-def configure_app(app, config = None):
+
+def configure_app(app, config=None):
     """Different ways of configurations."""
     app.config.from_object(Config.DefaultConfig)
     if config:
@@ -47,12 +53,13 @@ def configure_app(app, config = None):
     application_mode = getenv("APPLICATION_MODE", "LOCAL")
     app.config.from_object(Config.get_config(application_mode))
 
+
 def configure_extensions(app):
     # Flask SQLAlchemy
     db.init_app(app)
 
     # Flask Login
-    login_manager.login_view   = "frontend.index"
+    login_manager.login_view = "frontend.index"
     login_manager.refresh_view = "frontend.index"
 
     @login_manager.user_loader
@@ -62,32 +69,36 @@ def configure_extensions(app):
     login_manager.setup_app(app)
 
     @login_manager.unauthorized_handler
-    def unauthorized(msg = None):
+    def unauthorized(msg=None):
         """ Handles unauthorized request"""
-        return Response.make_error_resp(msg = "You're not authorized", code = 401)
+        return Response.make_error_resp(msg="You're not authorized", code=401)
 
     # Flask WTF
     csrf.init_app(app)
 
     # Flask Migrate
-    migrate = Migrate(app, db)
+    Migrate(app, db)
+
 
 def configure_blueprints(app, blueprints):
     for blueprint in blueprints:
         app.register_blueprint(blueprint)
 
+
 def configure_logging(app):
     pass
+
 
 def configure_hook(app):
     @app.before_request
     def before_request():
         pass
 
+
 def configure_error_handlers(app):
     @app.errorhandler(500)
     def server_error_page(error):
-        return Response.make_error_resp(msg=str(error), code=500)  
+        return Response.make_error_resp(msg=str(error), code=500)
 
     @app.errorhandler(422)
     def semantic_error(error):
