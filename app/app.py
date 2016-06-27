@@ -1,9 +1,9 @@
-import settings as Config
-
 from os import getenv
 from flask import Flask
 from flask_migrate import Migrate
+from celery import Celery
 
+from . import settings as Config
 from .api import api
 from .common import Response
 from .common import constants as COMMON_CONSTANTS
@@ -11,9 +11,8 @@ from .extensions import db, login_manager, csrf
 from .frontend import frontend
 from .models import User
 
-
 # For import *
-__all__ = ["create_app"]
+# __all__ = ["create_app"]
 
 DEFAULT_BLUEPRINTS = [
     api,
@@ -115,3 +114,21 @@ def configure_error_handlers(app):
     @app.errorhandler(400)
     def page_bad_request(error):
         return Response.make_error_resp(msg=str(error.description), code=400)
+
+
+def create_celery_app(app=None):
+    app = app or create_app(Config.BaseConfig)
+    celery = Celery(__name__)
+    celery.config_from_object(Config.CeleryConfig)
+    celery.conf.update(app.config)
+    TaskBase = celery.Task
+
+    class ContextTask(TaskBase):
+        abstract = True
+
+        def __call__(self, *args, **kwargs):
+            with app.context():
+                return TaskBase.__call__(self, *args, **kwargs)
+
+    celery.Task = ContextTask
+    return celery
