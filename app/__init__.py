@@ -1,1 +1,2 @@
-from app import create_app, make_celery
+from .celery import celery
+from .factory import create_app, configure_celery

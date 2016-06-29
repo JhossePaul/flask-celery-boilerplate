@@ -1,7 +1,9 @@
+from __future__ import absolute_import
+
 from os import getenv
 from flask import Flask
 from flask_migrate import Migrate
-from celery import Celery
+from app import celery
 
 from . import settings as Config
 from .api import api
@@ -10,9 +12,6 @@ from .common import constants as COMMON_CONSTANTS
 from .extensions import db, login_manager, csrf
 from .frontend import frontend
 from .models import User
-
-# For import *
-# __all__ = ["create_app"]
 
 DEFAULT_BLUEPRINTS = [
     api,
@@ -34,6 +33,7 @@ def create_app(config=None, app_name=None, blueprints=None):
     )
 
     configure_app(app, config)
+    configure_celery(app, celery)
     configure_hook(app)
     configure_blueprints(app, blueprints)
     configure_extensions(app)
@@ -116,9 +116,7 @@ def configure_error_handlers(app):
         return Response.make_error_resp(msg=str(error.description), code=400)
 
 
-def make_celery(app=None):
-    app = app or create_app(Config.BaseConfig)
-    celery = Celery(__name__)
+def configure_celery(app, celery):
     celery.conf.update(app.config)
 
     TaskBase = celery.Task
@@ -127,7 +125,6 @@ def make_celery(app=None):
         abstract = True
 
         def __call__(self, *args, **kwargs):
-            with app.context():
+            with app.app_context():
                 return TaskBase.__call__(self, *args, **kwargs)
     celery.Task = ContextTask
-    return celery

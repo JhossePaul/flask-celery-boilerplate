@@ -4,20 +4,20 @@ import requests
 import nltk
 import re
 
+from app import celery
 from bs4 import BeautifulSoup
 from collections import Counter
 
-from .app import make_celery
-from .extensions import db
-from .models import Words
-
-
-celery = make_celery()
+from ..extensions import db
+from ..models import Words
 
 
 @celery.task
 def count_words(url):
     errors = []
+    result = Words.query.filter_by(url=url).first()
+    if result:
+        return result.id
 
     try:
         r = requests.get(url)
@@ -37,7 +37,7 @@ def count_words(url):
         w
         for w
         in raw_words
-        if w.lower() not in nltk.corpus.stopwords.words("english")
+        if w.lower() not in nltk.corpus.stopwords.words("spanish")
     ]
     no_stop_words_count = Counter(no_stop_words)
 
