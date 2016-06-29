@@ -116,11 +116,11 @@ def configure_error_handlers(app):
         return Response.make_error_resp(msg=str(error.description), code=400)
 
 
-def create_celery_app(app=None):
+def make_celery(app=None):
     app = app or create_app(Config.BaseConfig)
     celery = Celery(__name__)
-    celery.config_from_object(Config.CeleryConfig)
     celery.conf.update(app.config)
+
     TaskBase = celery.Task
 
     class ContextTask(TaskBase):
@@ -129,6 +129,5 @@ def create_celery_app(app=None):
         def __call__(self, *args, **kwargs):
             with app.context():
                 return TaskBase.__call__(self, *args, **kwargs)
-
     celery.Task = ContextTask
     return celery

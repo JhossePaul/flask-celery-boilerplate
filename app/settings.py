@@ -11,7 +11,19 @@ class BaseConfig(object):
     SECRET_KEY = "NuncaAdivinaras"
 
 
-class DefaultConfig(BaseConfig):
+class CeleryConfig(object):
+    BROKER_URL = "amqp://guest:guest@localhost//"
+    CELERY_RESULT_BACKEND = "rpc://"
+    CELERY_ACCEPT_CONTENT = ['json']
+    CELERY_ENABLE_UTC = True
+    CELERY_RESULT_SERIALIZER = 'json'
+    CELERY_TASK_SERIALIZER = 'json'
+    CELERY_TASK_RESULT_EXPIRES = 3600
+    CELERY_TIMEZONE = 'America/Mexico_City'
+    CELERY_RESULT_PERSISTENT = True
+
+
+class DefaultConfig(BaseConfig, CeleryConfig):
     DEBUG = True
 
     # Flask SQLAlchemy configuration
@@ -44,16 +56,3 @@ def get_config(MODE):
         "PRODUCTION": ProductionConfig,
     }
     return SWITCH[MODE]
-
-
-class CeleryConfig(object):
-    BROKER_URL = "amqp://guest:guest@localhost//"
-    CELERY_RESULT_BACKEND = "rpc://"
-
-    CELERY_ACCEPT_CONTENT = ['json']
-    CELERY_ENABLE_UTC = True
-    CELERY_RESULT_SERIALIZER = 'json'
-    CELERY_TASK_SERIALIZER = 'json'
-    CELERY_TASK_RESULT_EXPIRES = 3600
-    CELERY_TIMEZONE = 'America/Mexico_City'
-    CELERY_RESULT_PERSISTENT = True
