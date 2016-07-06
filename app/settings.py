@@ -25,6 +25,7 @@ class CeleryConfig(object):
 
 class DefaultConfig(BaseConfig, CeleryConfig):
     DEBUG = True
+    SECRET_KEY = "JamasAdivinaras"
 
     # Flask SQLAlchemy configuration
     MYSQL_USER = "paul"
@@ -34,7 +35,8 @@ class DefaultConfig(BaseConfig, CeleryConfig):
         "@localhost/snm"
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
-    SECRET_KEY = "JamasAdivinaras"
+    # Flask Webpack Configuration
+    WEBPACK_MANIFEST_PATH = "./static/manifest.json"
 
 
 class LocalConfig(DefaultConfig):

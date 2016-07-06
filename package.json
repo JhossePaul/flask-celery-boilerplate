@@ -1,0 +1,36 @@
+{
+  "name": "social-network-analysis",
+  "version": "1.0.0",
+  "description": "Social Media CRM real time data analysis",
+  "main": " ",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JhossePaul/social-network-analysis.git"
+  },
+  "keywords": [
+    "crm",
+    "social",
+    "media",
+    "pythom",
+    "flask",
+    "angular2",
+    "bootstrap4",
+    "data",
+    "analysis"
+  ],
+  "author": "Jhosse Paul Márquez Ruíz <mcromanceva@hotmail.com>",
+  "license": "AGPL-3.0+",
+  "bugs": {
+    "url": "https://github.com/JhossePaul/social-network-analysis/issues"
+  },
+  "homepage": "https://github.com/JhossePaul/social-network-analysis#readme",
+  "devDependencies": {
+    "awesome-typescript-loader": "^1.1.1",
+    "manifest-revision-webpack-plugin": "^0.3.0",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
+  }
+}

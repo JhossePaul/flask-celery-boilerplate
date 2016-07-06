@@ -1,9 +1,9 @@
 # SNA (Social Network Analysis)
 
 Social Network Analysis is a project to fetch, analyze and manage social media data. At
-the bottom. SN is heavily inspired by Social Bakers, Hootsuite, Sprout,
-Sprinklr, Mention and other social media analytics. The priority of SNe is data
-visualization and deep data analytics. The purpose of SN is to provide a free, open
+the bottom. SNA is heavily inspired by Social Bakers, Hootsuite, Sprout,
+Sprinklr, Mention and other social media analytics. The priority of SNA is data
+visualization and deep data analytics. The purpose of SNA is to provide a free, open
 source, distributable platform to data analysis, not only data visualization as
 the mentioned "analytics" websites, some of these analysis include realtime time
 forecasting, text mining, sentiment analysis, automatic public segmentation,

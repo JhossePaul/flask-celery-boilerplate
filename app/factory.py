@@ -9,7 +9,7 @@ from . import settings as Config
 from .api import api
 from .common import Response
 from .common import constants as COMMON_CONSTANTS
-from .extensions import db, login_manager, csrf
+from .extensions import db, login_manager, csrf, webpack
 from .frontend import frontend
 from .models import User
 
@@ -74,6 +74,9 @@ def configure_extensions(app):
 
     # Flask WTF
     csrf.init_app(app)
+
+    # Flask Webpack
+    webpack.init_app(app)
 
     # Flask Migrate
     Migrate(app, db)
