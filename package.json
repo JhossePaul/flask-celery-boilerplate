@@ -29,7 +29,12 @@
   "homepage": "https://github.com/JhossePaul/social-network-analysis#readme",
   "devDependencies": {
     "awesome-typescript-loader": "^1.1.1",
+    "css-loader": "^0.23.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "image-webpack-loader": "^1.8.0",
     "manifest-revision-webpack-plugin": "^0.3.0",
+    "script-loader": "^0.7.0",
+    "style-loader": "^0.13.1",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
   }
