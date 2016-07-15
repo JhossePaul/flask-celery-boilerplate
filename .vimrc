@@ -10,7 +10,8 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 
-" Themes
+" Themes and general configuration'
+" Plugin 'embear/vim-localvimrc'
 Plugin 'altercation/vim-colors-solarized'
 
 " File Navigation
@@ -30,7 +31,8 @@ Plugin 'Raimondi/delimitMate'
 Plugin 'scrooloose/nerdcommenter'
 
 " Control Version (GIT) support
-" Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-fugitive'
+Plugin 'mhinz/vim-signify'
 
 " Screen Plugins
 Plugin 'vim-airline/vim-airline'
@@ -58,8 +60,9 @@ Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'HerringtonDarkholme/yats.vim'
 
 " Python plugins
-Plugin 'jmcantrell/vim-virtualenv'
+Plugin 'ehamberg/vim-cute-python'
 Plugin 'tmhedberg/SimpylFold'
+Plugin 'jmcantrell/vim-virtualenv'
 
 call vundle#end()
 filetype plugin indent on
@@ -81,7 +84,7 @@ let NERDTreeIgnore = ['\.pyc$', '\~$'] "ignore files in NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " NERDTree custom highlight colors
-let g:NERDTreeExtensionHighlightColor = {} 
+let g:NERDTreeExtensionHighlightColor = {}
 let g:NERDTreeExtensionHighlightColor['py'] = '009688'
 let g:NERDTreeExtensionHighlightColor['js'] = 'F7DF1E'
 let g:NERDTreeExtensionHighlightColor['md'] = 'FFFFFF'
@@ -104,7 +107,7 @@ let g:airline#extensions#tabline#enabled=1
 
 " Syntastic Config
 let g:syntastic_check_on_open = 1
-let g:syntastic_javascript_checkers = ['eslint'] " JavaScript Syntax
+let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_typescript_checkers = ['tslint']
 let g:syntastic_typescript_tsc_args = "--experimentalDecorators"
 let g:syntastic_python_checkerts = ['pylint']
@@ -112,6 +115,17 @@ let g:syntastic_python_checkerts = ['pylint']
 " Pangloss JavaScript Configuration
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_ngdoc = 1
+let g:javascript_conceal_function       = "ƒ"
+let g:javascript_conceal_null           = "ø"
+let g:javascript_conceal_this           = "@"
+let g:javascript_conceal_return         = "⇚"
+let g:javascript_conceal_undefined      = "¿"
+let g:javascript_conceal_NaN            = "ℕ"
+let g:javascript_conceal_prototype      = "¶"
+let g:javascript_conceal_static         = "•"
+let g:javascript_conceal_super          = "Ω"
+let g:javascript_conceal_arrow_function = "⇒"
+
 
 " JavaScript libraries syntax highlight
 let g:used_javascript_libs = 'underscore,jquery,angularjs,angularui,angularuirouter,requirejs'
@@ -127,7 +141,10 @@ let python_highlight_all = 1
 
 " Solarized theme
 let g:solarized_termcolors=16
-" let g:solarized_contrast = 'high'
+
+" YouCompleteMe Configuration
+let g:ycm_autoclose_preview_window_after_completion=1
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 """""""""""""""""""""
 " Settings
@@ -141,19 +158,20 @@ set fileformat=unix
 set backspace=2
 
 " Screen Config
-set splitbelow splitright
-set cursorline
 set number
+set cursorline
+set splitbelow splitright
+set conceallevel=1
+
+" Theme Configuration
 set t_Co=256
 set background=dark
 colorscheme solarized
 
 " Indent configuration
-set textwidth=80
 set expandtab autoindent
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+au BufNewFile,BufRead *.py,*.ts set tabstop=4 softtabstop=4 textwidth=80 shiftwidth=4
+au BufNewFile,BufRead *.js,*.css set tabstop=2 softtabstop=2 textwidth=80 shiftwidth=2
 
 " Folding configuration
 set foldmethod=indent
@@ -186,11 +204,12 @@ map <C-n> :NERDTreeToggle<CR>
 """"""""""""""""""""""""
 " Deprecated Plugins
 """"""""""""""""""""""""
+" Plugin 'jalvesaq/Nvim-R' " R Support
 " Plugin 'Quramy/vim-js-pretty-template'
-" Plugin 'jalvesaq/Nvim-R'
-" Plugin 'junegunn/vim-easy-align'
-" Plugin 'nvie/vim-flake8'
+" Plugin 'junegunn/vim-easy-align' " Not recommended for linters
+" Plugin 'nvie/vim-flake8' " Python lintern, Evaluate if pylint active
 
+" Plugin 'pangloss/vim-javascript' " Included in vim-polyglot
 " Plugin 'othree/html5.vim' " Included in vim-polyglot
 " Plugin 'othree/html5-syntax.vim' " Inlcuded in vim-polyglot
 " Plugin 'pangloss/vim-javascript' " Included in vim-polyglot
